@@ -8,13 +8,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,6 +26,7 @@ import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsBook;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(name = "fb_user")
 public class FBUser implements Serializable{
 	
 	private static final long serialVersionUID = 7966562061346334686L;
@@ -45,6 +43,10 @@ public class FBUser implements Serializable{
 	@Column(length = 40)
 	@Size(min = 3, max = 40)
 	private String name;
+	
+	@NotNull
+	@Enumerated
+	private Gender gender;
 	
 	@Email
 	@NotNull
@@ -130,5 +132,13 @@ public class FBUser implements Serializable{
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 }

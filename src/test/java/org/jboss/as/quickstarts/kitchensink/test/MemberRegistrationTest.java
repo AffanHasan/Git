@@ -10,9 +10,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration;
 import org.jboss.as.quickstarts.kitchensink.model.FBUser;
+import org.jboss.as.quickstarts.kitchensink.model.Gender;
 import org.jboss.as.quickstarts.kitchensink.model.IBasicEntityService;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
-import org.jboss.as.quickstarts.kitchensink.model.RegistrationType;
 import org.jboss.as.quickstarts.kitchensink.model.User;
 import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsBook;
 import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsGroup;
@@ -32,7 +32,7 @@ public class MemberRegistrationTest {
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addClasses(Member.class, MemberRegistration.class, Resources.class,
-            User.class, FBUser.class, RegistrationType.class, IBasicEntityService.class, UserAccountServiceBean.class
+            User.class, FBUser.class, Gender.class, IBasicEntityService.class, UserAccountServiceBean.class
             ,ContactsBook.class, ContactsGroup.class)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -59,6 +59,7 @@ public class MemberRegistrationTest {
 	   user.setPassword("123");
 	   user.setCountry("PK");
 	   user.setLanguage("en");
+	   user.setGender(Gender.MALE);
 	   
 	   //Create Contact Book
 	   ContactsBook cbUser = new ContactsBook();
@@ -73,11 +74,12 @@ public class MemberRegistrationTest {
 	   userAccountService.update(user);
 	   
 	   FBUser fBUser = new FBUser();
+	   fBUser.setId(544311701L);
 	   fBUser.setName("Affan Hasan");
 	   fBUser.setCountry("pk");
 	   fBUser.setLanguage("en");
 	   fBUser.setEmail("affan_hasan@hotmail.com");
-	   fBUser.setId(544311701L);
+	   fBUser.setGender(Gender.MALE);
 	   
 	   ContactsBook cbFBUser = new ContactsBook();
 	   cbFBUser.setfBUser(fBUser);

@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,6 +42,10 @@ public class User implements Serializable{
 	@Column(length = 40)
 	@Size(min = 3, max = 40)
 	private String name;
+	
+	@NotNull
+	@Enumerated
+	private Gender gender;
 	
 	@Email
 	@NotNull
@@ -133,5 +139,13 @@ public class User implements Serializable{
 
 	public void setContactsBook(ContactsBook contactsBook) {
 		this.contactsBook = contactsBook;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 }
