@@ -24,7 +24,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.sun.tools.doclets.internal.toolkit.util.Group;
 
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
