@@ -43,7 +43,7 @@ public class UserAccountServiceBean implements IBasicEntityService {
 	}
 
 	@Override
-	public <T> T find(String... criteria) {
+	public <T> T find(Class<T> entityClass, String... criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

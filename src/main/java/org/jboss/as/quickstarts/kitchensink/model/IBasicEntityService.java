@@ -29,9 +29,9 @@ public interface IBasicEntityService {
 	public < T > boolean remove(T entity);
 	
 	/**
-	 * <p>Removes an Entity, passed as an argument from the DB.</p>
+	 * <p>Find & returns an entity instance from the data base, depending on the criteria passed as varargs argument.</p>
 	 * 
 	 * @return 'true' if success 'false' if failure
 	 */	
-	public < T > T find(String...criteria);
+	public < T > T find(Class<T> entityClass, String...criteria);
 }

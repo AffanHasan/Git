@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,11 +29,12 @@ import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsBook;
  */
 @Entity
 @Access(AccessType.FIELD)
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email, password"))
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 7966562061346334686L;
 	
-	//TODO To create entity constructor when it will become stable
+	//TODO To create entity constructor when it will become stable & also generate equals & hash code methods 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +51,6 @@ public class User implements Serializable{
 	
 	@Email
 	@NotNull
-	@Column(unique = true)
 	private String email;
 	
 	@NotEmpty

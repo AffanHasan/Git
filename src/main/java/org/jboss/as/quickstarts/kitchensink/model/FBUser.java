@@ -31,7 +31,7 @@ public class FBUser implements Serializable{
 	
 	private static final long serialVersionUID = 7966562061346334686L;
 
-	//TODO To create entity constructor when it will become stable
+	//TODO To create entity constructor when it will become stable & also generate equals & hash code methods
 	
 	/**
 	 * FaceBook user id is used as primary key here. Therefore we do not need an auto generated id.
