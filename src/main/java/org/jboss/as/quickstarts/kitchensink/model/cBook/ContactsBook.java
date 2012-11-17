@@ -3,13 +3,15 @@ package org.jboss.as.quickstarts.kitchensink.model.cBook;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 
 import org.jboss.as.quickstarts.kitchensink.model.FBUser;
 import org.jboss.as.quickstarts.kitchensink.model.User;
 
 /**
- * Address book
+ * <p>Represents a 'contacts book'.</p>
+ * <p>A contact book is @OneToOne related with a User, FBUser etc.</p>
  *
  * @author AffanHasan
  */
@@ -47,7 +49,27 @@ public class ContactsBook implements Serializable {
 	
 	@OneToMany(mappedBy = "contactsBook")
 	private List<ContactsGroup> group;
+	
+	@PostConstruct
+	private void postContruct(){
+		//TODO : To add a group named 'general_group' here
+		this.getGroup().add(null);
+	}
 
+	/**
+	 * This constructor is only to satisfy the JPA 2.0 specification; for an entity there must be a no argument public/protected constructor.
+	 */
+	public ContactsBook(){
+		
+	}
+	
+	public ContactsBook(User user, FBUser fBUser) {
+		super();
+		this.user = user;
+		this.fBUser = fBUser;
+	}
+
+	//Boiler plate getters & setters
 	public Long getId() {
 		return id;
 	}

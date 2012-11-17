@@ -6,7 +6,8 @@ import java.lang.String;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Group
+ * A ContactsBook is @OneToMany related with a ContactsGroup.
+ * <p>In a contact book every contact is associated with a group & by default all contacts are assigned to a group named 'General Group'</p>
  * 
  * @author AffanHasan
  */
@@ -26,9 +27,7 @@ public class ContactsGroup implements Serializable {
 	@JoinColumn(name = "contacts_book_id")
 	private ContactsBook contactsBook;
 
-	public ContactsGroup() {
-		super();
-	}   
+	//Boiler plate getters & setters
 	public String getName() {
 		return this.name;
 	}
@@ -38,9 +37,5 @@ public class ContactsGroup implements Serializable {
 	}   
 	public Long getId() {
 		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

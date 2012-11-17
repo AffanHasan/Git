@@ -16,7 +16,7 @@
    <container qualifier="jboss" default="true">
       <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
       <configuration>
-         <property name="jbossHome">/media/Softwares/jboss-as-7.1.0/</property>
+         <property name="jbossHome">D:\jboss-as-7.1.0.Final\jboss-as-7.1.0.Final</property>
       </configuration>
    </container>
 

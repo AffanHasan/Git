@@ -23,13 +23,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsBook;
 
 /**
- * Represents an application user
+ * Represents a user who uses conventional registration/authentication method
  * 
  * @author AffanHasan
  */
 @Entity
 @Access(AccessType.FIELD)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email, password"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"email", "password"}))
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 7966562061346334686L;
@@ -51,11 +51,12 @@ public class User implements Serializable{
 	
 	@Email
 	@NotNull
+	@Column(name = "email")
 	private String email;
 	
 	@NotEmpty
-	@Column(length = 16)
 	@Size(min = 3, max = 16)
+	@Column(name = "password", length = 16)
 	private String password;
 	
 	/**
@@ -80,7 +81,6 @@ public class User implements Serializable{
 	 */
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private ContactsBook contactsBook;
-
 	//Boiler plate getters & setters
 	public String getEmail() {
 		return email;
@@ -148,5 +148,37 @@ public class User implements Serializable{
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
 	}
 }

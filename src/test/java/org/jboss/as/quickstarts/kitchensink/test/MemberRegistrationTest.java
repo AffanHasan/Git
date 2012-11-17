@@ -2,6 +2,9 @@ package org.jboss.as.quickstarts.kitchensink.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -14,6 +17,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Gender;
 import org.jboss.as.quickstarts.kitchensink.model.IBasicEntityService;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.model.User;
+import org.jboss.as.quickstarts.kitchensink.model.BasicEntityServiceBean;
 import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsBook;
 import org.jboss.as.quickstarts.kitchensink.model.cBook.ContactsGroup;
 import org.jboss.as.quickstarts.kitchensink.util.Resources;
@@ -31,7 +35,7 @@ public class MemberRegistrationTest {
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
             .addClasses(Member.class, MemberRegistration.class, Resources.class,
-            User.class, FBUser.class, Gender.class, IBasicEntityService.class, UserAccountServiceBean.class
+            User.class, FBUser.class, Gender.class, IBasicEntityService.class, BasicEntityServiceBean.class
             ,ContactsBook.class, ContactsGroup.class)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -65,7 +69,7 @@ public class MemberRegistrationTest {
 	   cbUser.setUser(user);
 	   
 	   user.setContactsBook(cbUser);
-	   log.info(userAccountService.register(user) == true ?
+	   log.info(userAccountService.persist(user) == true ?
 	   "User with email: " + user.getEmail() + " persisted" : "Unable to persist user with email : " + user.getEmail());
 	   
 	   //Updating user
@@ -84,14 +88,25 @@ public class MemberRegistrationTest {
 	   cbFBUser.setfBUser(fBUser);
 	   
 	   fBUser.setContactsBook(cbFBUser);
-	   log.info(userAccountService.register(fBUser) == true ?
+	   log.info(userAccountService.persist(fBUser) == true ?
 	   "User with email: " + fBUser.getEmail() + " persisted" : "Unable to persist user with email : " + fBUser.getEmail());
 	   
-	   log.info(userAccountService.remove(user) ? "User with email: " + user.getEmail() + " removed from DB" : 
-		   "Unable to remove user with email: " + user.getEmail());
+	   Map<String, Object> criteriaMap = new LinkedHashMap<String, Object>();
+	   criteriaMap.put("email", "affan_hasan@hotmail.com");
+	   criteriaMap.put("password", "1234");
 	   
-	   log.info(userAccountService.remove(fBUser) ? "User with email: " + fBUser.getEmail() + " removed from DB" : 
-		   "Unable to remove user with email: " + fBUser.getEmail());
+	   userAccountService.getSingleInstance(User.class, criteriaMap);
+	   
+	   criteriaMap.clear();
+	   criteriaMap.put("id", 544311701L);
+	   userAccountService.getSingleInstance(FBUser.class, criteriaMap);
+	   
+	   //Testing the remove method
+//	   log.info(userAccountService.remove(user) ? "User with email: " + user.getEmail() + " removed from DB" : 
+//		   "Unable to remove user with email: " + user.getEmail());
+//	   
+//	   log.info(userAccountService.remove(fBUser) ? "User with email: " + fBUser.getEmail() + " removed from DB" : 
+//		   "Unable to remove user with email: " + fBUser.getEmail());
 	   
 	   log.info("To be or not to be, thatz the question");
    }
